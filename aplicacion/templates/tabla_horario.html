@@ -1,0 +1,36 @@
+{% extends "barra_menu.html" %}
+{% block contenedor %}
+<div class="container my-5">
+    <h1 class="text-center text-success">TABLA REGISTRO EMPLEADO</h1>
+    <div class="table-responsive">
+        <table class="table table-sm table-striped table-bordered align-middle">
+            <thead class="table-success text-center text-nowrap">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">NOMBRE</th>
+                    <th scope="col">FECHA</th>
+                    <th scope="col">HORA.I</th>
+                    <th scope="col">HORA.F</th>
+                    <th scope="col">COMENTARIO</th>
+                    <th scope="col">ELIMINAR</th>
+                    <th scope="col">EDITAR</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in horario %}
+                    <tr>
+                        <td scope="row">{{ x.Id_Horario }}</td>
+                        <td scope="row">{{ x.Nombre_Horario }}</td>
+                        <td scope="row">{{ x.Fecha_Horario }}</td>
+                        <td scope="row">{{ x.Hora_Inicio_Horario }}</td>
+                        <td scope="row">{{ x.Hora_Final_Horario }}</td>
+                        <td scope="row">{{ x.Comentario_Horario }}</td>
+                        <td scope="row"><a href="logica_eliminar_horario/{{ x.Id_Horario }}" class="btn btn-danger btn-sm w-100">ELIMINAR</a></td>
+                        <td scope="row"><a href="enlace_actualiza_horario/{{ x.Id_Horario }}" class="btn btn-warning btn-sm w-100">EDITAR</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock contenedor %}

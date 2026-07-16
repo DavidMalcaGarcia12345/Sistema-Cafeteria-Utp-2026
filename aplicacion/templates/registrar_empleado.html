@@ -1,0 +1,49 @@
+{% extends "barra_menu.html" %}
+{% block contenedor %}
+<div class="container my-5">
+    <h1 class="text-center text-success">REGISTRAR EMPLEADO</h1>
+    <form method='POST' action='/logica_registrar_empleado/'> {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="identificacion" class="form-label">IDENTIFICACION</label>
+                <input type="text" class="form-control" id="TxtIdentificacion" name="TxtIdentificacion" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="nombre" class="form-label">NOMBRE</label>
+                <input type="text" class="form-control" id="TxtNombre" name="TxtNombre" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="categoria" class="form-label">CARGO</label>
+                <input type="text" class="form-control" id="TxtCargo" name="TxtCargo" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="mesa" class="form-label">N.TELEFONICO</label>
+                <input type="text" class="form-control" id="TxtTelefonico" name="TxtTelefonico" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="fecha" class="form-label">UBICACION</label>
+                <input type="text" class="form-control" id="TxtUbicacion" name="TxtUbicacion" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="hora" class="form-label">CORREO</label>
+                <input type="text" class="form-control" id="TxtCorreo" name="TxtCorreo" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="hora" class="form-label">T.CONTRATO</label>
+                <input type="text" class="form-control" id="TxtContrato" name="TxtContrato" required>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">REGISTRAR PEDIDO</button>
+        </div>
+    </form>
+</div>
+
+{% endblock contenedor %}

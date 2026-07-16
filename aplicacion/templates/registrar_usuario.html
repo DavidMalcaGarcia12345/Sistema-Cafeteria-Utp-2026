@@ -1,0 +1,45 @@
+{% extends "barra_menu.html" %}
+{% block contenedor %}
+<div class="container my-5">
+    <h1 class="text-center text-success">REGISTRAR USUARIO</h1>
+    <form method='POST' action='/logica_registrar_usuario/'> {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="identificacion" class="form-label">IDENTIFICACION</label>
+                <input type="text" class="form-control" id="TxtIdentificacion" name="TxtIdentificacion" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="nombre" class="form-label">NOMBRE USUARIO</label>
+                <input type="text" class="form-control" id="TxtNombre" name="TxtNombre" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="categoria" class="form-label">CONTRASEÑIA USUARIO</label>
+                <input type="text" class="form-control" id="TxtContrasenia" name="TxtContrasenia" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="mesa" class="form-label">FECHA CREACION</label>
+                <input type="date" class="form-control" id="TxtFecha" name="TxtFecha" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="fecha" class="form-label">HORA CREACION</label>
+                <input type="time" class="form-control" id="TxtHora" name="TxtHora" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="hora" class="form-label">COMENTARIO</label>
+                <input type="text" class="form-control" id="TxtComentario" name="TxtComentario" required>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">REGISTRAR USUARIO</button>
+        </div>
+    </form>
+</div>
+
+{% endblock contenedor %}

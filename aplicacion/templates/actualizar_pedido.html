@@ -1,0 +1,45 @@
+{% extends "barra_menu.html" %}
+{% block contenedor %}
+<div class="container my-5">
+    <h1 class="text-center text-success">ACTUALIZAR PEDIDO</h1>
+    <form action='/logica_actualizar_pedido/' method='POST'>{% csrf_token %}
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="identificacion" class="form-label">IDENTIFICACION</label>
+                <input type="text" class="form-control" id="TxtIdentificacion" name="TxtIdentificacion" value="{{ actualizar_pedido.Id_Pedido }}">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="nombre" class="form-label">NOMBRE</label>
+                <input type="text" class="form-control" id="TxtNombre" name="TxtNombre" value="{{ actualizar_pedido.Nombre_Pedido }}">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="categoria" class="form-label">CATEGORIA</label>
+                <input type="text" class="form-control" id="TxtCategoria" name="TxtCategoria" value="{{ actualizar_pedido.Categoria_Pedido }}">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="mesa" class="form-label">MESA</label>
+                <input type="text" class="form-control" id="TxtMesa" name="TxtMesa" value="{{ actualizar_pedido.Mesa_Pedido }}">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="fecha" class="form-label">FECHA</label>
+                <input type="date" class="form-control" id="TxtFecha" name="TxtFecha" value="{{ actualizar_pedido.Fecha_Pedido }}">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="hora" class="form-label">HORA</label>
+                <input type="time" class="form-control" id="TxtHora" name="TxtHora" value="{{ actualizar_pedido.Hora_Pedido }}">
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">ACTUALIZAR PEDIDO</button>
+        </div>
+    </form>
+</div>
+
+{% endblock contenedor %}

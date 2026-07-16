@@ -1,0 +1,45 @@
+{% extends "barra_menu.html" %}
+{% block contenedor %}
+<div class="container my-5">
+    <h1 class="text-center text-success">REGISTRAR PEDIDO</h1>
+    <form method='POST' action='/logica_registrar_pedido/'> {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="identificacion" class="form-label">IDENTIFICACION</label>
+                <input type="text" class="form-control" id="TxtIdentificacion" name="TxtIdentificacion" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="nombre" class="form-label">NOMBRE</label>
+                <input type="text" class="form-control" id="TxtNombre" name="TxtNombre" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="categoria" class="form-label">CATEGORIA</label>
+                <input type="text" class="form-control" id="TxtCategoria" name="TxtCategoria" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="mesa" class="form-label">MESA</label>
+                <input type="text" class="form-control" id="TxtMesa" name="TxtMesa" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="fecha" class="form-label">FECHA</label>
+                <input type="date" class="form-control" id="TxtFecha" name="TxtFecha" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="hora" class="form-label">HORA</label>
+                <input type="time" class="form-control" id="TxtHora" name="TxtHora" required>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">REGISTRAR PEDIDO</button>
+        </div>
+    </form>
+</div>
+
+{% endblock contenedor %}
