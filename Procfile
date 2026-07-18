@@ -1,1 +1,1 @@
-web: gunicorn SISTEMA_CAFETERIA.wsgi
+web: gunicorn cafeteria.wsgi
