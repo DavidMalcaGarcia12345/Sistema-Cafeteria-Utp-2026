@@ -125,6 +125,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://sistema-ventas-universidad-production.up.railway.app',
-    'https://web-production-f1977.up.railway.app'
+    'https://sistema-cafeteria-utp-2026-production.up.railway.app',
 ]
