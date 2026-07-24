@@ -37,5 +37,12 @@ urlpatterns = [
     path('logica_registrar_usuario/' , views.logica_registrar_usuario), 
     path('enlace_tabla_usuario/logica_eliminar_usuario/<Id_Usuario>' , views.logica_eliminar_usuario), 
     path('enlace_tabla_usuario/enlace_actualizar_usuario/<Id_Usuario>' , views.enlace_actualizar_usuario), 
-    path('logica_actualizar_usuario/' , views.logica_actualizar_usuario)
+    path('logica_actualizar_usuario/' , views.logica_actualizar_usuario),
+
+    path('enlace_tabla_ingresos_stock/' , views.enlace_tabla_ingresos_stock),
+    path('enlace_registrar_ingresos_stock/' , views.enlace_registrar_ingresos_stock),
+    path('logica_registrar_ingresos_stock/' , views.logica_registrar_ingresos_stock),
+    path('enlace_tabla_ingresos_stock/logica_eliminar_ingresos_stock/<Id_Ingreso_Stock>' , views.logica_eliminar_ingresos_stock),
+    path('enlace_tabla_ingresos_stock/enlace_actualizar_ingresos_stock/<Id_Ingreso_Stock>' , views.enlace_actualizar_ingresos_stock),
+    path('logica_actulizar_ingresos_stock/' , views.logica_actulizar_ingresos_stock)
 ]

@@ -1,0 +1,36 @@
+{% extends "barra_menu.html" %}
+{% block contenedor %}
+<div class="container my-5">
+    <h1 class="text-center text-success">TABLA INGRESOS STOCK</h1>
+    <div class="table-responsive">
+        <table class="table table-sm table-striped table-bordered align-middle">
+            <thead class="table-success text-center text-nowrap">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">FECHA</th>
+                    <th scope="col">USUARIO</th>
+                    <th scope="col">NOMBRE .M</th>
+                    <th scope="col">DESCRIPCION .M</th>
+                    <th scope="col">CANTIDAD .M</th>
+                    <th scope="col">OPCION 1</th>
+                    <th scope="col">OPCION 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in stock %}
+                    <tr>
+                        <td scope="row">{{ x.Id_Ingreso_Stock }}</td>
+                        <td scope="row">{{ x.Fecha_Ingreso_Stock }}</td>
+                        <td scope="row">{{ x.Usuario_Salida_Stock }}</td>
+                        <td scope="row">{{ x.Nombre_Ingreso_Stock }}</td>
+                        <td scope="row">{{ x.Descripion_Ingreso_Stock }}</td>
+                        <td scope="row">{{ x.Cantidad_Ingreso_Stock }}</td>
+                        <td scope="row"><a href="logica_eliminar_ingresos_stock/{{ x.Id_Ingreso_Stock }}" class="btn btn-danger btn-sm w-100">ELIMINAR</a></td>
+                        <td scope="row"><a href="enlace_actualizar_ingresos_stock/{{ x.Id_Ingreso_Stock }}" class="btn btn-warning btn-sm w-100">EDITAR</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock contenedor %}

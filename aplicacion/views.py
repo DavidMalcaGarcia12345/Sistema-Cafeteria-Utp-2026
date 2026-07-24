@@ -1,6 +1,6 @@
 from django.shortcuts import render , redirect
 from django.http import HttpResponse
-from .models import Tabla_Pedido , Tabla_Ven , Tabla_Empleado , Tabla_Horario , Tabla_Usuario
+from .models import Tabla_Pedido , Tabla_Ven , Tabla_Empleado , Tabla_Horario , Tabla_Usuario , Tabla_Salida_Stock , Tabla_Ingreso_Stock
 
 def barra_menu(request):
     return render(request , 'barra_menu.html')
@@ -328,3 +328,61 @@ def logica_actualizar_usuario(request):
     usuario.save()
 
     return redirect('/enlace_tabla_usuario/')
+
+def enlace_tabla_ingresos_stock(request):
+    stock = Tabla_Ingreso_Stock.objects.all()
+    return render(request , "tabla_ingresos_stock.html" , {
+        'stock' : stock
+    })
+
+def enlace_registrar_ingresos_stock(request):
+    return render(request , "registrar_ingresos_stock.html")
+
+def logica_registrar_ingresos_stock(request):
+    Id = request.POST['TxtIdentificacion']
+    Fecha = request.POST['TxtNombre']
+    Usuario = request.POST['txtUsuario']
+    Nombre = request.POST['txtNombreMaterial']
+    Descripion = request.POST['txtDescripcionMaterial']
+    Cantidad = request.POST['txtCantidadMaterial']
+
+    stock = Tabla_Ingreso_Stock.objects.create(
+        Id_Ingreso_Stock = Id,
+        Fecha_Ingreso_Stock = Fecha,
+        Usuario_Salida_Stock = Usuario,
+        Nombre_Ingreso_Stock = Nombre,
+        Descripion_Ingreso_Stock = Descripion,
+        Cantidad_Ingreso_Stock = Cantidad,
+    )
+    return redirect('/enlace_tabla_ingresos_stock/')
+
+def logica_eliminar_ingresos_stock(request , Id_Ingreso_Stock):
+    stock = Tabla_Ingreso_Stock.objects.get(Id_Ingreso_Stock = Id_Ingreso_Stock)
+    stock.delete()
+    return redirect('/enlace_tabla_ingresos_stock/')
+
+def enlace_actualizar_ingresos_stock(request , Id_Ingreso_Stock):
+    actualizar_stock = Tabla_Ingreso_Stock.objects.get(Id_Ingreso_Stock = Id_Ingreso_Stock)
+    return render(request , "actualizar_ingresos_stock.html" , {
+        "actualizar_stock" : actualizar_stock
+    })
+
+def logica_actulizar_ingresos_stock(request): 
+    Id_Ingreso_Stock = request.POST['TxtIdentificacion']
+    Fecha_Ingreso_Stock = request.POST['TxtNombre']
+    Usuario_Salida_Stock = request.POST['txtUsuario']
+    Nombre_Ingreso_Stock = request.POST['txtNombreMaterial']
+    Descripion_Ingreso_Stock = request.POST['txtDescripcionMaterial']
+    Cantidad_Ingreso_Stock = request.POST['txtCantidadMaterial']
+
+    actualizar_stock = Tabla_Ingreso_Stock.objects.get(Id_Ingreso_Stock = Id_Ingreso_Stock)
+    actualizar_stock.Fecha_Ingreso_Stock = Fecha_Ingreso_Stock
+    actualizar_stock.Usuario_Salida_Stock = Usuario_Salida_Stock
+    actualizar_stock.Nombre_Ingreso_Stock = Nombre_Ingreso_Stock
+    actualizar_stock.Descripion_Ingreso_Stock = Descripion_Ingreso_Stock
+    actualizar_stock.Cantidad_Ingreso_Stock = Cantidad_Ingreso_Stock
+
+    actualizar_stock.save()
+
+    return redirect("/enlace_tabla_ingresos_stock/")
+    

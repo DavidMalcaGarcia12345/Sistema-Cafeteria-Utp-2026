@@ -1,49 +1,90 @@
 {% extends "barra_menu.html" %}
 {% block contenedor %}
-<div class='my-5 container'>
-    <div class="card">
-        <div class="card-header">REGISTRAR PEDIDO</div>
-            <div class="card-body">
-                <h5 class="card-title">Confirmación de Solicitud</h5>
-                <p class="card-text">Ingresa los detalles de tu compra y verifica la información antes de finalizar para asegurar una entrega correcta.</p>
-                <a href="/enlace_registrar_pedido/" class="btn btn-success">Procesar Pedido</a>
+<div class="container my-5">
+    <div class="row g-4">
+        <!-- REGISTRAR PEDIDO -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header">REGISTRAR PEDIDO</div>
+                <div class="card-body">
+                    <h5 class="card-title">Confirmación de Solicitud</h5>
+                    <p class="card-text">Ingresa los detalles de tu compra y verifica la información antes de finalizar para asegurar una entrega correcta.</p>
+                    <a href="/enlace_registrar_pedido/" class="btn btn-success">Procesar Pedido</a>
+                </div>
             </div>
-    </div>
-    <hr>
-    <div class="card">
-        <div class="card-header">REGISTRAR VENTA</div>
-            <div class="card-body">
-                <h5 class="card-title">Detalle de la Transacción</h5>
-                <p class="card-text">Registra los productos vendidos y el método de pago para generar el comprobante correspondiente.</p>
-                <a href="/enlace_tabla_ventas/" class="btn btn-success">Completar Venta</a>
         </div>
-    </div>
-    <hr>
-    <div class="card">
-        <div class="card-header">REGISTRAR EMPLEADO</div>
-            <div class="card-body">
-                <h5 class="card-title">Gestión de Nuevo Personal</h5>
-                <p class="card-text">Completa la información personal, cargo y datos de contacto para dar de alta al nuevo colaborador en el sistema.</p>
-                <a href="/enlace_tabla_empleado/" class="btn btn-success">Dar de Alta</a>
+
+        <!-- REGISTRAR VENTA -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header">REGISTRAR VENTA</div>
+                <div class="card-body">
+                    <h5 class="card-title">Detalle de la Transacción</h5>
+                    <p class="card-text">Registra los productos vendidos y el método de pago para generar el comprobante correspondiente.</p>
+                    <a href="/enlace_tabla_ventas/" class="btn btn-success">Completar Venta</a>
+                </div>
             </div>
-    </div>
-    <hr>
-    <div class="card">
-        <div class="card-header">REGISTRAR USUARIO</div>
-            <div class="card-body">
-                <h5 class="card-title">Credenciales de Acceso</h5>
-                <p class="card-text">Configura el nombre de usuario, correo electrónico y nivel de permisos para permitir el ingreso de un nuevo usuario a la plataforma.</p>
-                <a href="/enlace_tabla_usuario/" class="btn btn-success">Crear Cuenta</a>
+        </div>
+
+        <!-- REGISTRAR EMPLEADO -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header">REGISTRAR EMPLEADO</div>
+                <div class="card-body">
+                    <h5 class="card-title">Gestión de Nuevo Personal</h5>
+                    <p class="card-text">Completa la información personal, cargo y datos de contacto para dar de alta al nuevo colaborador en el sistema.</p>
+                    <a href="/enlace_tabla_empleado/" class="btn btn-success">Dar de Alta</a>
+                </div>
             </div>
-    </div>
-    <hr>
-    <div class="card">
-        <div class="card-header">REGISTRAR HORARIO</div>
-            <div class="card-body">
-                <h5 class="card-title">Planificación de Turnos</h5>
-                <p class="card-text">Define las horas de entrada, salida y días de descanso para organizar la jornada laboral del personal.</p>
-                <a href="/enlace_tabla_horario/" class="btn btn-success">Asignar Horario</a>
+        </div>
+
+        <!-- REGISTRAR HORARIO -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header">REGISTRAR HORARIO</div>
+                <div class="card-body">
+                    <h5 class="card-title">Planificación de Turnos</h5>
+                    <p class="card-text">Define las horas de entrada, salida y días de descanso para organizar la jornada laboral del personal.</p>
+                    <a href="/enlace_tabla_horario/" class="btn btn-success">Asignar Horario</a>
+                </div>
             </div>
+        </div>
+
+        <!-- REGISTRAR USUARIO -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header">REGISTRAR USUARIO</div>
+                <div class="card-body">
+                    <h5 class="card-title">Credenciales de Acceso</h5>
+                    <p class="card-text">Configura el nombre de usuario, correo electrónico y nivel de permisos para permitir el ingreso de un nuevo usuario a la plataforma.</p>
+                    <a href="/enlace_tabla_usuario/" class="btn btn-success">Crear Cuenta</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- REGISTRAR INGRESOS STOCK -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header">REGISTRAR INGRESOS STOCK</div>
+                <div class="card-body">
+                    <h5 class="card-title">Planificación Ingresos Stock</h5>
+                    <p class="card-text">Define y organiza el ingreso de stock.</p>
+                    <a href="/enlace_tabla_ingresos_stock/" class="btn btn-success">Registrar Ingresos</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- REGISTRAR SALIDA STOCK -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header">REGISTRAR SALIDA STOCK</div>
+                <div class="card-body">
+                    <h5 class="card-title">Planificación Salida Stock</h5>
+                    <p class="card-text">Define y organiza la salida del stock.</p>
+                    <a href="#" class="btn btn-success">Registrar Salida</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock contenedor %}

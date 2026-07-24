@@ -57,4 +57,25 @@ class Tabla_Usuario(models.Model):
 
     def __str__(self):
         return f"{self.Id_Usuario} - {self.Nombre_Usuario}"
-    
+
+class Tabla_Ingreso_Stock(models.Model): 
+    Id_Ingreso_Stock = models.CharField()
+    Fecha_Ingreso_Stock = models.DateField()
+    Usuario_Salida_Stock = models.CharField()
+    Nombre_Ingreso_Stock = models.CharField()
+    Descripion_Ingreso_Stock = models.CharField()
+    Cantidad_Ingreso_Stock = models.CharField()
+
+    def __str__(self):
+        return f"{self.Id_Ingreso_Stock} - {self.Fecha_Ingreso_Stock}"
+
+class Tabla_Salida_Stock(models.Model):
+    Id_Salida_Stock = models.CharField()
+    Fecha_Salida_Stock = models.DateField()
+    Usuario_Salida_Stock = models.CharField()
+    Nombre_Salida_Stock = models.CharField()
+    Descripcion_Salida_Stock = models.CharField()
+    Cantidad_Salida_Stock = models.CharField()
+
+    def __str__(self):
+        return f"{self.Id_Salida_Stock} - {self.Fecha_Salida_Stock}"
