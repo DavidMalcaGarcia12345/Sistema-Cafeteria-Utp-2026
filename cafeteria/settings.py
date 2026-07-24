@@ -133,3 +133,9 @@ LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/panel_control_empleado/'
 
 LOGOUT_REDIRECT_URL = '/'
+
+# 1. Desactiva el modo depuración (OBLIGATORIO en producción)
+DEBUG = False
+
+# 2. Permite que Railway u otros dominios usen el proyecto
+ALLOWED_HOSTS = ['*']  # O pon tu dominio: ['sistema-cafeteria-utp-2026-production.up.railway.app', 'localhost', '127.0.0.1']
