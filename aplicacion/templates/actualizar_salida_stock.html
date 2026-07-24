@@ -1,0 +1,45 @@
+{% extends "barra_menu.html" %}
+{% block contenedor %}
+<div class="container my-5">
+    <h1 class="text-center text-success">ACTUALIZAR INGRESOS STOCK</h1>
+    <form method='POST' action='/logica_actualizar_salida_stock/'> {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="identificacion" class="form-label">IDENTIFICACION</label>
+                <input type="text" class="form-control" id="TxtIdentificacion" name="TxtIdentificacion" required value="{{ actualizar_salida_stock.Id_Salida_Stock }}">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="nombre" class="form-label">FECHA</label>
+                <input type="date" class="form-control" id="TxtNombre" name="TxtNombre" required value="{{ actualizar_salida_stock.Fecha_Salida_Stock }}">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="categoria" class="form-label">USUARIO</label>
+                <input type="text" class="form-control" id="txtUsuario" name="txtUsuario" required value="{{ actualizar_salida_stock.Usuario_Salida_Stock }}">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="mesa" class="form-label">NOMBRE MATERIAL</label>
+                <input type="text" class="form-control" id="txtNombreMaterial" name="txtNombreMaterial" required value="{{ actualizar_salida_stock.Nombre_Salida_Stock }}">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="fecha" class="form-label">DESCRIPCION MATERIAL</label>
+                <input type="text" class="form-control" id="txtDescripcionMaterial" name="txtDescripcionMaterial" required value="{{ actualizar_salida_stock.Descripcion_Salida_Stock }}">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="hora" class="form-label">CANTIDAD MATERIAL</label>
+                <input type="text" class="form-control" id="txtCantidadMaterial" name="txtCantidadMaterial" required value="{{ actualizar_salida_stock.Cantidad_Salida_Stock }}">
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">REGISTRAR INGRESOS STOCK</button>
+        </div>
+    </form>
+</div>
+
+{% endblock contenedor %}

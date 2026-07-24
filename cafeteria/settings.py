@@ -127,3 +127,9 @@ ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
     'https://sistema-cafeteria-utp-2026-production.up.railway.app',
 ]
+
+LOGIN_URL = '/'
+
+LOGIN_REDIRECT_URL = '/panel_control_empleado/'
+
+LOGOUT_REDIRECT_URL = '/'

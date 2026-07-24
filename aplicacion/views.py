@@ -1,44 +1,52 @@
 from django.shortcuts import render , redirect
 from django.http import HttpResponse
 from .models import Tabla_Pedido , Tabla_Ven , Tabla_Empleado , Tabla_Horario , Tabla_Usuario , Tabla_Salida_Stock , Tabla_Ingreso_Stock
+from django.contrib.auth.decorators import login_required
+from functools import wraps
 
 def barra_menu(request):
     return render(request , 'barra_menu.html')
 
+def login_requerido(view_func):
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        # Si no tiene la sesión activa, lo manda al login
+        if not request.session.get('usuario_logueado'):
+            return redirect('/')  # Pon aquí la ruta de tu login si es distinta
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
+
 def login_usuario_empleado(request):
     error_message = None
-    
     if request.method == 'POST':
-        # Obtenemos los datos y usamos .strip() para quitar espacios vacíos accidentales
         usuario_ingresado = request.POST.get('usuario', '').strip()
         contrasenia_ingresada = request.POST.get('contrasenia', '').strip()
-        
-        # 1. Validamos que ninguno de los campos esté vacío
-        if not usuario_ingresado or not contrasenia_ingresada:
-            error_message = "Por favor, complete todos los campos."
-            
-        # 2. Si no están vacíos, validamos las credenciales correctas
-        elif usuario_ingresado == 'empleado' and contrasenia_ingresada == '123':
+
+        if usuario_ingresado == 'admin' and contrasenia_ingresada == 'admin':
+            # GUARDAR LA SESIÓN AL ENTRAR
+            request.session['usuario_logueado'] = True
             return redirect('/panel_control_empleado/')
-        
-        # 3. Si están llenos pero son incorrectos
         else:
             error_message = "Usuario o contraseña incorrectos. Intente de nuevo."
-            
+
     return render(request, 'usuario_empleado.html', {'error': error_message})
 
+@login_requerido
 def panel_control_empleado(request):
     return render(request , 'panel_control.html')
 
+@login_requerido
 def enlace_tabla_pedido(request): 
     pedido = Tabla_Pedido.objects.all()
     return render(request , 'tabla_pedidos.html' , {
         'pedido' : pedido
     })
 
+@login_requerido
 def enlace_registrar_pedido(request): 
     return render(request , 'registrar_pedido.html')
 
+@login_requerido
 def logica_registrar_pedido(request):
     Id = request.POST['TxtIdentificacion']
     Nombre = request.POST['TxtNombre']
@@ -58,17 +66,20 @@ def logica_registrar_pedido(request):
     
     return redirect('/enlace_tabla_pedido/')
 
+@login_requerido
 def logica_eliminar_pedido(request , Id_Pedido):
     pedido = Tabla_Pedido.objects.get(Id_Pedido = Id_Pedido)
     pedido.delete()
     return redirect('/enlace_tabla_pedido/')
 
+@login_requerido
 def enlace_actualizar_pedido(request , Id_Pedido):
     pedido = Tabla_Pedido.objects.get(Id_Pedido = Id_Pedido)
     return render(request , 'actualizar_pedido.html' , {
         'actualizar_pedido' : pedido
     })
 
+@login_requerido
 def logica_actualizar_pedido(request): 
     Id_Pedido = request.POST['TxtIdentificacion']
     Nombre_Pedido = request.POST['TxtNombre']
@@ -88,15 +99,18 @@ def logica_actualizar_pedido(request):
 
     return redirect('/enlace_tabla_pedido/')
 
+@login_requerido
 def enlace_tabla_ventas(request):
     ventas = Tabla_Ven.objects.all()
     return render(request , 'tabla_ventas.html' , {
         'ventas' : ventas
     })
 
+@login_requerido
 def enlace_registrar_ventas(request):
     return render(request , 'registrar_ventas.html')
 
+@login_requerido
 def logica_registrar_ventas(request):
     Id = request.POST['TxtIdentificacion']
     Nombre = request.POST['TxtNombre']
@@ -118,17 +132,20 @@ def logica_registrar_ventas(request):
 
     return redirect('/enlace_tabla_ventas/')
 
+@login_requerido
 def logica_eliminar_ventas(request , Id_Ventas):
     ventas = Tabla_Ven.objects.get(Id_Ventas = Id_Ventas)
     ventas.delete()
     return redirect('/enlace_tabla_ventas/')    
 
+@login_requerido
 def enlace_actualizar_ventas(request , Id_Ventas):
     ventas = Tabla_Ven.objects.get(Id_Ventas = Id_Ventas)
     return render(request , 'actualizar_ventas.html' , {
         'actualizar_ventas' : ventas
     })
 
+@login_requerido
 def logica_actualizar_ventas(request):
     Id_Ventas = request.POST['TxtIdentificacion']
     Nombre_Ventas = request.POST['TxtNombre']
@@ -150,15 +167,18 @@ def logica_actualizar_ventas(request):
 
     return redirect('/enlace_tabla_ventas/')
 
+@login_requerido
 def enlace_tabla_empleado(request):
     empleado = Tabla_Empleado.objects.all()
     return render(request , 'tabla_empleado.html' , {
         'empleado' : empleado
     })
-    
+
+@login_requerido 
 def enlace_registrar_empleado(request):
     return render(request , 'registrar_empleado.html')
 
+@login_requerido
 def logica_registrar_empleado(request): 
     Id = request.POST['TxtIdentificacion']
     Nombre = request.POST['TxtNombre']
@@ -180,17 +200,20 @@ def logica_registrar_empleado(request):
 
     return redirect('/enlace_tabla_empleado/')
 
+@login_requerido
 def logica_eliminar_empleado(request , Id_Empleado):
     empleado = Tabla_Empleado.objects.get(Id_Empleado = Id_Empleado)
     empleado.delete()
     return redirect('/enlace_tabla_empleado/')
 
+@login_requerido
 def enlace_actualizar_empleado(request , Id_Empleado):
     empleado = Tabla_Empleado.objects.get(Id_Empleado = Id_Empleado)
     return render(request , "actualizar_empleado.html" , {
         'actualizar_empleado' : empleado
     })
 
+@login_requerido
 def logica_actualizar_empleado(request): 
     Id_Empleado = request.POST['TxtIdentificacion']
     Nombre_Empleado = request.POST['TxtNombre']
@@ -212,15 +235,18 @@ def logica_actualizar_empleado(request):
 
     return redirect('/enlace_tabla_empleado/')
 
+@login_requerido
 def enlace_tabla_horario(request):
     horario = Tabla_Horario.objects.all()
     return render(request , "tabla_horario.html" , {
         'horario' : horario
     })
 
+@login_requerido
 def enlace_registrar_horario(request):
     return render(request , "registrar_horario.html")
 
+@login_requerido
 def logica_registrar_horario(request):
     Id = request.POST['TxtIdentificacion']
     Nombre = request.POST['TxtNombre']
@@ -240,18 +266,20 @@ def logica_registrar_horario(request):
 
     return redirect('/enlace_tabla_horario/')
 
-
+@login_requerido
 def logica_eliminar_horario(request , Id_Horario): 
     horario = Tabla_Horario.objects.get(Id_Horario = Id_Horario)
     horario.delete()
     return redirect('/enlace_tabla_horario/')
 
+@login_requerido
 def enlace_actualiza_horario(request , Id_Horario): 
     horario = Tabla_Horario.objects.get(Id_Horario = Id_Horario)
     return render(request , 'actualizar_horario.html' , {
         'actualizar_horario' : horario
     })
 
+@login_requerido
 def logica_actualizar_horario(request):
     Id_Horario = request.POST['TxtIdentificacion']
     Nombre_Horario = request.POST['TxtNombre']
@@ -271,15 +299,18 @@ def logica_actualizar_horario(request):
 
     return redirect('/enlace_tabla_horario/')
 
+@login_requerido
 def enlace_tabla_usuario(request):
     usuario = Tabla_Usuario.objects.all()
     return render(request , 'tabla_usuario.html' , {
         'usuario' : usuario
     })
 
+@login_requerido
 def enlace_registrar_usuario(request): 
     return render(request , 'registrar_usuario.html')
 
+@login_requerido
 def logica_registrar_usuario(request): 
     Id = request.POST['TxtIdentificacion']
     Nombre = request.POST['TxtNombre']
@@ -299,17 +330,20 @@ def logica_registrar_usuario(request):
     
     return redirect('/enlace_tabla_usuario/')
 
+@login_requerido
 def logica_eliminar_usuario(request , Id_Usuario):
     usuario = Tabla_Usuario.objects.get(Id_Usuario = Id_Usuario)
     usuario.delete()
     return redirect('/enlace_tabla_usuario/')
 
+@login_requerido
 def enlace_actualizar_usuario(request , Id_Usuario):
     usuario = Tabla_Usuario.objects.get(Id_Usuario = Id_Usuario)
     return render(request , 'actualizar_usuario.html' , {
         'actualizar_usuario' : usuario
     })
 
+@login_requerido
 def logica_actualizar_usuario(request): 
     Id_Usuario = request.POST['TxtIdentificacion']
     Nombre_Usuario = request.POST['TxtNombre']
@@ -329,15 +363,18 @@ def logica_actualizar_usuario(request):
 
     return redirect('/enlace_tabla_usuario/')
 
+@login_requerido
 def enlace_tabla_ingresos_stock(request):
     stock = Tabla_Ingreso_Stock.objects.all()
     return render(request , "tabla_ingresos_stock.html" , {
         'stock' : stock
     })
 
+@login_requerido
 def enlace_registrar_ingresos_stock(request):
     return render(request , "registrar_ingresos_stock.html")
 
+@login_requerido
 def logica_registrar_ingresos_stock(request):
     Id = request.POST['TxtIdentificacion']
     Fecha = request.POST['TxtNombre']
@@ -346,7 +383,7 @@ def logica_registrar_ingresos_stock(request):
     Descripion = request.POST['txtDescripcionMaterial']
     Cantidad = request.POST['txtCantidadMaterial']
 
-    stock = Tabla_Ingreso_Stock.objects.create(
+    ingreso_stock = Tabla_Ingreso_Stock.objects.create(
         Id_Ingreso_Stock = Id,
         Fecha_Ingreso_Stock = Fecha,
         Usuario_Salida_Stock = Usuario,
@@ -356,17 +393,20 @@ def logica_registrar_ingresos_stock(request):
     )
     return redirect('/enlace_tabla_ingresos_stock/')
 
+@login_requerido
 def logica_eliminar_ingresos_stock(request , Id_Ingreso_Stock):
-    stock = Tabla_Ingreso_Stock.objects.get(Id_Ingreso_Stock = Id_Ingreso_Stock)
-    stock.delete()
+    ingreso_stock = Tabla_Ingreso_Stock.objects.get(Id_Ingreso_Stock = Id_Ingreso_Stock)
+    ingreso_stock.delete()
     return redirect('/enlace_tabla_ingresos_stock/')
 
+@login_requerido
 def enlace_actualizar_ingresos_stock(request , Id_Ingreso_Stock):
-    actualizar_stock = Tabla_Ingreso_Stock.objects.get(Id_Ingreso_Stock = Id_Ingreso_Stock)
+    actualizar_ingreso_stock = Tabla_Ingreso_Stock.objects.get(Id_Ingreso_Stock = Id_Ingreso_Stock)
     return render(request , "actualizar_ingresos_stock.html" , {
-        "actualizar_stock" : actualizar_stock
+        "actualizar_stock" : actualizar_ingreso_stock
     })
 
+@login_requerido
 def logica_actulizar_ingresos_stock(request): 
     Id_Ingreso_Stock = request.POST['TxtIdentificacion']
     Fecha_Ingreso_Stock = request.POST['TxtNombre']
@@ -375,14 +415,78 @@ def logica_actulizar_ingresos_stock(request):
     Descripion_Ingreso_Stock = request.POST['txtDescripcionMaterial']
     Cantidad_Ingreso_Stock = request.POST['txtCantidadMaterial']
 
-    actualizar_stock = Tabla_Ingreso_Stock.objects.get(Id_Ingreso_Stock = Id_Ingreso_Stock)
-    actualizar_stock.Fecha_Ingreso_Stock = Fecha_Ingreso_Stock
-    actualizar_stock.Usuario_Salida_Stock = Usuario_Salida_Stock
-    actualizar_stock.Nombre_Ingreso_Stock = Nombre_Ingreso_Stock
-    actualizar_stock.Descripion_Ingreso_Stock = Descripion_Ingreso_Stock
-    actualizar_stock.Cantidad_Ingreso_Stock = Cantidad_Ingreso_Stock
+    actualizar_ingresos_stock = Tabla_Ingreso_Stock.objects.get(Id_Ingreso_Stock = Id_Ingreso_Stock)
+    actualizar_ingresos_stock.Fecha_Ingreso_Stock = Fecha_Ingreso_Stock
+    actualizar_ingresos_stock.Usuario_Salida_Stock = Usuario_Salida_Stock
+    actualizar_ingresos_stock.Nombre_Ingreso_Stock = Nombre_Ingreso_Stock
+    actualizar_ingresos_stock.Descripion_Ingreso_Stock = Descripion_Ingreso_Stock
+    actualizar_ingresos_stock.Cantidad_Ingreso_Stock = Cantidad_Ingreso_Stock
 
-    actualizar_stock.save()
+    actualizar_ingresos_stock.save()
 
     return redirect("/enlace_tabla_ingresos_stock/")
+
+@login_requerido
+def enlace_tabla_salida_stock(request):
+    salida_stock = Tabla_Salida_Stock.objects.all()
+    return render(request , "tabla_salida_stock.html" , {
+        'salida_stock' : salida_stock
+    })
+
+@login_requerido
+def enlace_registrar_salida_stock(request):
+    return render(request , "registrar_salida_stock.html")
+
+@login_requerido
+def logica_registrar_salida_stock(request): 
+    Id = request.POST['TxtIdentificacion']
+    Fecha = request.POST['TxtNombre']
+    Usuario = request.POST['txtUsuario']
+    Nombre = request.POST['txtNombreMaterial']
+    Descripcion = request.POST['txtDescripcionMaterial']
+    Cantidad = request.POST['txtCantidadMaterial']
     
+    salida_stock = Tabla_Salida_Stock.objects.create(
+        Id_Salida_Stock = Id,
+        Fecha_Salida_Stock = Fecha,
+        Usuario_Salida_Stock = Usuario,
+        Nombre_Salida_Stock = Nombre,
+        Descripcion_Salida_Stock = Descripcion,
+        Cantidad_Salida_Stock = Cantidad,
+    )
+
+    return redirect('/enlace_tabla_salida_stock/')
+
+@login_requerido
+def logica_eliminar_salida_stock(request , Id_Salida_Stock):
+    salida_stock = Tabla_Salida_Stock.objects.get(Id_Salida_Stock = Id_Salida_Stock)
+    salida_stock.delete()
+    return redirect('/enlace_tabla_salida_stock/')
+
+@login_requerido
+def enlace_actualizar_salida_stock(request , Id_Salida_Stock):
+    actualizar_salida_stock = Tabla_Salida_Stock.objects.get(Id_Salida_Stock = Id_Salida_Stock)
+    return render(request , "actualizar_salida_stock.html" , {
+        "actualizar_salida_stock" :  actualizar_salida_stock
+    })
+
+@login_requerido
+def logica_actualizar_salida_stock(request):
+    Id_Salida_Stock = request.POST['TxtIdentificacion']
+    Fecha_Salida_Stock = request.POST['TxtNombre']
+    Usuario_Salida_Stock = request.POST['txtUsuario']
+    Nombre_Salida_Stock = request.POST['txtNombreMaterial']
+    Descripcion_Salida_Stock = request.POST['txtDescripcionMaterial']
+    Cantidad_Salida_Stock = request.POST['txtCantidadMaterial']
+
+    actualizar_salida_stock = Tabla_Salida_Stock.objects.get(Id_Salida_Stock = Id_Salida_Stock)
+    actualizar_salida_stock.Fecha_Salida_Stock = Fecha_Salida_Stock
+    actualizar_salida_stock.Usuario_Salida_Stock = Usuario_Salida_Stock
+    actualizar_salida_stock.Nombre_Salida_Stock = Nombre_Salida_Stock
+    actualizar_salida_stock.Descripcion_Salida_Stock = Descripcion_Salida_Stock
+    actualizar_salida_stock.Cantidad_Salida_Stock = Cantidad_Salida_Stock
+
+    actualizar_salida_stock.save()
+
+    return redirect('/enlace_tabla_salida_stock/')
+
